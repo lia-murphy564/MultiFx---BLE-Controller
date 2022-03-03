@@ -80,11 +80,11 @@
 				DCEC5A2327B35EC900E5CFC8 /* LaunchScreen.storyboard */,
 				DCEC5A2627B35EC900E5CFC8 /* Info.plist */,
 				DCEC5A2727B35EC900E5CFC8 /* main.m */,
-				DCEC5A1E27B35EC800E5CFC8 /* bletest.xcdatamodeld */,
 				DC3304E627B406B400FBC8D2 /* ParameterEncoder.h */,
 				DC7A1B0527B5C19C00653B7E /* ParameterEncoder.m */,
 				DCCCDB0127BB268A0005B0F4 /* BluetoothController.m */,
 				DCCCDB0427BB26990005B0F4 /* BluetoothController.h */,
+				DCEC5A1E27B35EC800E5CFC8 /* bletest.xcdatamodeld */,
 			);
 			path = bletest;
 			sourceTree = "<group>";

@@ -10,7 +10,7 @@
 
 @interface ParameterEncoder ()
 
-@property NSMutableDictionary *paramTree;
+@property NSMutableDictionary* paramTree;
 @property NSArray* keys;
 @property NSMutableDictionary *paramStruct;
 @property int numParams;
@@ -52,11 +52,26 @@
     NSLog(@"%@", str);
 }
 
+-(void)printParameterAtIndex:(int)index {
+    NSString* strIndex = [NSString stringWithFormat:@"%i", index];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self.paramTree[strIndex] options:NSJSONWritingWithoutEscapingSlashes error:nil];
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", str);
+}
+
 -(NSData*)getParameterTreeAsJSON {
-    NSData *data = [NSJSONSerialization dataWithJSONObject:self.paramTree options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self.paramTree options:NSJSONWritingWithoutEscapingSlashes error:nil];
     //NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     //NSLog(@"%@", str);
     return data;
+}
+
+-(NSData*)getParameterTreeAsJSONWithUTF8 {
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self.paramTree options:NSJSONWritingWithoutEscapingSlashes error:nil];
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSData *outd = [str dataUsingEncoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", str);
+    return outd;
 }
 
 -(NSMutableDictionary*)getParameterTreeAsDictionary {
@@ -66,9 +81,11 @@
 -(NSData*)getParameterAsJSON:(int)index {
     NSString* strIndex = [NSString stringWithFormat:@"%i", index];
     NSData* curr = self.paramTree[strIndex];
-    NSData* data = [NSJSONSerialization dataWithJSONObject:curr options:NSJSONWritingPrettyPrinted error:nil];
-    //return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return data;
+    NSData* data = [NSJSONSerialization dataWithJSONObject:curr options:NSJSONWritingWithoutEscapingSlashes error:nil];
+    NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSData* outd = [str dataUsingEncoding:NSUTF8StringEncoding];
+    //return data;
+    return outd;
 }
 
 -(void)setParameterValue:(int)value withIndex:(int)index {

@@ -19,6 +19,7 @@
 
 - (void)initBLE;
 - (void)setData:(NSData*)dataIn;
+-(void)writeDataOverBLE:(NSData*)data;
 
 @end
 

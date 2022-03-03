@@ -50,11 +50,11 @@
 //    [paramEncoder addParameterWithLabel:@"Effect Select Right" andValue:0 andType:@"Select"];
     [paramEncoder addParameterWithLabel:@"Effect State" andValue:0 andType:@"State"];
     
-    [paramEncoder printParameterTree];
+    //[paramEncoder printParameterTree];
     
     ble = [[BluetoothController alloc] init];
     [ble initBLE];
-    ble.data = [paramEncoder getParameterTree];
+    //ble.data = [paramEncoder getParameterTree];
     //ble.dataBuffer = [paramEncoder]
     //[ble setData:[paramEncoder getParameterTree]];
 
@@ -75,13 +75,26 @@
         state = self.bypassSwitch.isOn;
         
     [paramEncoder setParameterValue:state withIndex:tag];
-    [paramEncoder printParameterTree];
+    //[paramEncoder printParameterAtIndex:tag];
+    //[paramEncoder printParameterTree];
+//    NSData* data = [paramEncoder getParameterAsJSON:tag];
+////    //NSData* data = [paramEncoder getParameterTreeAsDictionary];
+//    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    NSString *ostr = [str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+//    NSLog(ostr);
+//    NSData* outd = (NSData*)ostr;
+//    //NSData *data = [@"WereHere" dataUsingEncoding:NSUTF8StringEncoding];
+//    [ble writeDataOverBLE:outd];
+    NSData* data = [paramEncoder getParameterTreeAsJSON];
+    [ble writeDataOverBLE:data];
+
 }
+
 
 - (IBAction)sliderValueChanged:(id)sender {
 
     NSInteger tag = [sender tag];
-    NSInteger val = 0;
+    int val = 0;
     
     if (tag == 1)
         val = self.potSlider1.value;
@@ -93,7 +106,20 @@
         val = self.potSlider4.value;
         
     [paramEncoder setParameterValue:val withIndex:tag];
-    [paramEncoder printParameterTree];
+    //NSData *data = [@"WereHere" dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSData* data = [paramEncoder getParameterAsJSON:tag];
+    //NSData* data = [[NSData alloc] initWithBase64EncodedData:jsonD options:NSUTF8StringEncoding];
+    
+    //NSString *str = [[NSString alloc] initWithData:data encodsing:NSUTF8StringEncoding];
+    //NSData* data = [NSData dataWithBytes:&val length:sizeof(val)];//:val length:sizeof(val)];
+//    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    NSString *ostr = [str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+//    NSLog(ostr);
+//    NSData* outd = (NSData*)ostr;
+    [ble writeDataOverBLE:data];
+    //[paramEncoder printParameterAtIndex:tag];
+    //[paramEncoder printParameterTree];
 }
 
 - (IBAction)effectSelectOnClick:(id)sender {
@@ -110,7 +136,10 @@
     
     self.effectNameLabel.text = [NSString stringWithFormat:@"Effect %i", self.effectState];
     NSLog(@"%i", self.effectState);
-    [paramEncoder printParameterTree];
+    //[paramEncoder printParameterAtIndex:tag];
+    //[paramEncoder printParameterTree];
+    NSData* data = [paramEncoder getParameterTreeAsJSON];
+    [ble writeDataOverBLE:data];
 }
 
 @end

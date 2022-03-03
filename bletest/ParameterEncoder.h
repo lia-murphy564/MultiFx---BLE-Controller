@@ -11,10 +11,12 @@
 @interface ParameterEncoder : NSObject
 
 -(void)addParameterWithLabel:(NSString*)label andValue:(int)value andType:(NSString*)type;
--(void)printPsarameterTree;
+-(void)printParameterTree;
+-(void)printParameterAtIndex:(int)index;
 -(NSData*)getParameterAsJSON:(int)index;
 -(NSMutableDictionary*)getParameterTreeAsDictionary;
 -(NSData*)getParameterTreeAsJSON;
+-(NSData*)getParameterTreeAsJSONWithUTF8;
 
 -(NSData*)encodeValueWithType:(int)type andIndex:(int)index andValue:(int)value;
 -(void)setParameterValue:(int)value withIndex:(int)index;
